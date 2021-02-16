@@ -1,0 +1,50 @@
+function cal(amount) {
+if (amount >=50 && amount < 100) {
+return amount-50;
+} else if (amount >100){
+return (2*(amount-100) + 50);
+}
+return 0;
+}
+
+class tran {
+constructor(amount) {
+this.amount = amount;
+this.prize = cal(amount);
+this.tdate = new Date();
+}
+}
+
+class tranList {
+constructor() {
+this.list = [];
+}
+
+getLastList() {
+var T = new Date();
+const D = T.setMonth(T.getMonth() - 3);
+let f = this.list.filter(tran => tran.tdate > D);
+return f.sort((a,b) => b.tdate - a.tdate);
+}
+
+getAlltran() {
+return this.list.sort((a,b) => b.tdate-a.tdate);
+}
+
+addtrans(amount) {
+const tran = new tran(amount);
+this.list.push(tran);
+}
+
+getNetprize() {
+return this.list.l ? this.list.reduce((acc,key)=>key.prize+acc, 0) : 0;
+}
+
+prizepermonth() {
+let lastprizeInDesc = [];
+for(let i=0; i<3; i++) {
+let f = this.list.filter(trans => trans.tdate.getMonth() == (new Date).getMonth() - i );
+lastprizeInDesc[i] = f.reduce((acc,key)=>key.prize+acc,0);
+}
+return lastprizeInDesc;
+}
